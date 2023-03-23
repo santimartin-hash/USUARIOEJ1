@@ -1,5 +1,8 @@
 package modelo;
 
+
+
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +28,7 @@ public class ModeloUsuario extends Connector{
 			
 			usuario.setId(resultado.getInt("id"));
 			usuario.setNombre(resultado.getString("Nombre"));
-		
+			usuario.setFecha(resultado.getDate("fecha"));
 			usuarios.add(usuario);
 
 		}
@@ -66,8 +69,18 @@ public class ModeloUsuario extends Connector{
 		
 		usuario.setId(resultado.getInt("id"));
 		usuario.setNombre(resultado.getString("Nombre"));
-		
+		usuario.setContraseña(resultado.getString("Contraseña"));
+		usuario.setFecha(resultado.getDate("fecha"));
 		}
+		
 		return usuario;
+	}
+	
+	public void insertarUsuario(Usuario usuario) throws SQLException {
+		pst = con.prepareStatement("INSERT INTO usuarios( Nombre, Contraseña) VALUES (?,?)");
+		
+		pst.setString(1, usuario.getNombre());
+		pst.setString(2, usuario.getContraseña());
+		pst.execute();
 	}
 }

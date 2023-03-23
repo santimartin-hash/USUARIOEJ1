@@ -2,7 +2,12 @@ package Controlador;
 
 import java.io.IOException;
 
+
+
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,16 +19,16 @@ import modelo.ModeloUsuario;
 import modelo.Usuario;
 
 /**
- * Servlet implementation class verUsuario
+ * Servlet implementation class InsertarUsuario
  */
-@WebServlet("/verUsuario")
-public class verUsuario extends HttpServlet {
+@WebServlet("/InsertarUsuario")
+public class InsertarUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public verUsuario() {
+    public InsertarUsuario() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,31 +38,41 @@ public class verUsuario extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ModeloUsuario modeloUsuario = new ModeloUsuario();
-		Usuario usuario = new Usuario();
-		
-		modeloUsuario.conectar();
-		int id = Integer.parseInt( request.getParameter("id"));
-		
-		try {
-			usuario = modeloUsuario.getUsuario(id);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		modeloUsuario.cerrar();
-		
-		request.setAttribute("usuario", usuario);
-		
-		request.getRequestDispatcher("VerUsuario.jsp").forward(request, response);
+		request.getRequestDispatcher("InsertarUsuario.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+
+		ModeloUsuario modeloUsuario = new ModeloUsuario();
+		Usuario usuario = new Usuario();
+	
+		String nombre = request.getParameter("nombre");
+		String contraseña = request.getParameter("contrasena");
+
+		
+	
+		
+		modeloUsuario.conectar();
+		usuario.setNombre(nombre);
+		usuario.setContraseña(contraseña);
+
+			
+	
+		try {
+			modeloUsuario.insertarUsuario(usuario);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		modeloUsuario.cerrar();
+		
+		response.sendRedirect("verUsuarios");
+		
 	}
 
 }
