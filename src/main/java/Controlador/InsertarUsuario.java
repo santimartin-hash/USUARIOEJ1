@@ -40,7 +40,20 @@ public class InsertarUsuario extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		ModeloUsuario modeloUsuario = new ModeloUsuario();
+		ArrayList<Rol> roles = new ArrayList<Rol>();
+		
+		modeloUsuario.conectar();
+		try {
+			roles = modeloUsuario.getRoles();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		modeloUsuario.cerrar();
+		
+		request.setAttribute("roles", roles);
+		
 		request.getRequestDispatcher("InsertarUsuario.jsp").forward(request, response);
 	}
 
@@ -49,7 +62,7 @@ public class InsertarUsuario extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Rol> roles = new ArrayList<Rol>();
+
 		ModeloUsuario modeloUsuario = new ModeloUsuario();
 		Usuario usuario = new Usuario();
 	
@@ -83,13 +96,7 @@ public class InsertarUsuario extends HttpServlet {
 		usuario.setContraseña(contraseña);
 		usuario.setId_rol(id_rol);
 
-		try {
-			roles = modeloUsuario.getRoles();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		request.setAttribute("roles", roles);
+	
 		try {
 			modeloUsuario.insertarUsuario(usuario);
 			

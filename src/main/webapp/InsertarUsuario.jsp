@@ -24,8 +24,13 @@
                 <input type="text" class="form-control" id="nombre" name="nombre">
               </div>
                <div class="form-group">
-               <label for="nombre">rol:</label>
-                <input type="text" class="form-control" id="id_rol" name="id_rol">
+               <label for="id_rol">Rol:</label>
+			   <select class="form-control" id="id_rol" name="id_rol">
+			 		<option value="0"></option>
+						 <c:forEach items="${roles}" var="rol">
+				     		 <option value="${rol.id}">${rol.nombre}</option>
+				    </c:forEach>
+ 				 </select>
               </div>
               <div class="form-group">
                 <label for="contrasena">Contraseña:</label>

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import modelo.ModeloUsuario;
+import modelo.Rol;
 import modelo.Usuario;
 
 /**
@@ -50,6 +52,36 @@ public class ModificarUsuarios extends HttpServlet {
 			e.printStackTrace();
 		}
 	    modeloUsuario.cerrar();
+	    
+
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		
+		modeloUsuario.conectar();
+		try {
+			usuarios = modeloUsuario.getUsuarios();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		modeloUsuario.cerrar();
+		
+	
+		ArrayList<Rol> roles = new ArrayList<Rol>();
+		
+		modeloUsuario.conectar();
+		try {
+			roles = modeloUsuario.getRoles();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		modeloUsuario.cerrar();
+		
+		request.setAttribute("roles", roles);
+	
+		
 	    // Despachar la solicitud a la vista "ModificarUsuario.jsp"
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("ModificarUsuario.jsp");
 	    dispatcher.forward(request, response);

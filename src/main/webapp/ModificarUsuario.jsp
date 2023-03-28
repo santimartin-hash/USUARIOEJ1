@@ -29,8 +29,19 @@
                 <input value = "${usuario.nombre}" type="text" class="form-control" id="nombre" name="nombre">
               </div>
                <div class="form-group">
-                <label for="contrasena">id_rol:</label>
-                <input value = "${usuario.id_rol}" type="text" class="form-control" id="id_rol" name="id_rol">
+               <label for="id_rol">Rol:</label>
+			   <select class="form-control" id="id_rol" name="id_rol">
+			 		<option value="0"></option>
+						<c:forEach var="roles" items="${roles}">
+  							<c:if test="${usuario.id_rol == roles.id}">
+    						<option value="${roles.id}" selected>${roles.nombre}</option>
+  							</c:if>
+  							<c:if test="${usuario.id_rol != roles.id}">
+    						<option value="${roles.id}" selected>${roles.nombre}</option>
+  							</c:if>
+  							
+						</c:forEach>	
+ 				 </select>
               </div>
               <div class="form-group">
                 <label for="contrasena">Contraseña:</label>
