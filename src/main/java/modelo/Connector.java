@@ -10,7 +10,7 @@ public class Connector {
 	public void conectar() {
 		try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				String url = "jdbc:mysql://localhost/ejercicio1";
+				String url = "jdbc:mysql://localhost/ejer1";
 				con = (Connection) DriverManager.getConnection(url, "root", "");
 		} catch (Exception e) {
 			e.printStackTrace();

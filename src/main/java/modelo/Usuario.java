@@ -1,12 +1,13 @@
 package modelo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Usuario {
 private int id;
 private String Nombre;
 private String Contraseña;
 private Date fecha;
+private int id_rol;
 
 public int getId() {
 	return id;
@@ -35,6 +36,12 @@ public Date getFecha() {
 }
 public void setFecha(Date fecha) {
 	this.fecha = fecha;
+}
+public int getId_rol() {
+	return id_rol;
+}
+public void setId_rol(int id_rol) {
+	this.id_rol = id_rol;
 }
 
 }

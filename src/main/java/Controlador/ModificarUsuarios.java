@@ -1,15 +1,12 @@
 package Controlador;
 
 import java.io.IOException;
-
-
-
-
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,16 +17,16 @@ import modelo.ModeloUsuario;
 import modelo.Usuario;
 
 /**
- * Servlet implementation class InsertarUsuario
+ * Servlet implementation class ModificarUsuarios
  */
-@WebServlet("/InsertarUsuario")
-public class InsertarUsuario extends HttpServlet {
+@WebServlet("/ModificarUsuarios")
+public class ModificarUsuarios extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertarUsuario() {
+    public ModificarUsuarios() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,19 +35,36 @@ public class InsertarUsuario extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("InsertarUsuario.jsp").forward(request, response);
+		 // Recuperar el ID del usuario de la solicitud
+	    int id = Integer.parseInt(request.getParameter("id"));
+
+	    // Obtener los datos del usuario del modelo
+	    ModeloUsuario modeloUsuario = new ModeloUsuario();
+	    modeloUsuario.conectar();
+	    Usuario usuario;
+		try {
+			usuario = modeloUsuario.getUsuario(id);
+			 request.setAttribute("usuario", usuario);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    modeloUsuario.cerrar();
+	    // Despachar la solicitud a la vista "ModificarUsuario.jsp"
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("ModificarUsuario.jsp");
+	    dispatcher.forward(request, response);
+		
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 
 		ModeloUsuario modeloUsuario = new ModeloUsuario();
 		Usuario usuario = new Usuario();
-	
+		int id = Integer.parseInt(request.getParameter("id"));
 		String nombre = request.getParameter("nombre");
 		String contraseña = request.getParameter("contrasena");
 		
@@ -74,16 +88,17 @@ public class InsertarUsuario extends HttpServlet {
 		}
 		int id_rol = Integer.parseInt(request.getParameter("id_rol"));
 				
-	
+
 		
 		modeloUsuario.conectar();
+		usuario.setId(id);
 		usuario.setNombre(nombre);
 		usuario.setContraseña(contraseña);
 		usuario.setId_rol(id_rol);
 
 	
 		try {
-			modeloUsuario.insertarUsuario(usuario);
+			modeloUsuario.modificarUsuario(usuario);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -92,6 +107,9 @@ public class InsertarUsuario extends HttpServlet {
 		modeloUsuario.cerrar();
 		
 		response.sendRedirect("verUsuarios");
+		
+	
+		
 		
 	}
 

@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>InsertarUsuario</title>
+  <title>ModificarUsuario</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -17,22 +18,27 @@
             <h4>Información de usuario</h4>
           </div>
           <div class="card-body">
-            <form method="post" action="InsertarUsuario">
+            <form method="post" action="ModificarUsuarios">
+            <div class="form-group">
+                <label for="nombre">Id:</label>
+               <input type="hidden" value="${usuario.id}" id="id" name="id">
+    			<span class="form-control" id="id-display">${usuario.id}</span>
+              </div>
               <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="nombre">
+                <input value = "${usuario.nombre}" type="text" class="form-control" id="nombre" name="nombre">
               </div>
                <div class="form-group">
                 <label for="contrasena">id_rol:</label>
-                <input type="text" class="form-control" id="id_rol" name="id_rol">
+                <input value = "${usuario.id_rol}" type="text" class="form-control" id="id_rol" name="id_rol">
               </div>
               <div class="form-group">
                 <label for="contrasena">Contraseña:</label>
-                <input type="password" class="form-control" id="contrasena" name="contrasena">
+                <input value = "${usuario.contraseña}" type="text" class="form-control" id="contrasena" name="contrasena">
               </div>
                <div class="form-group">
                 <label for="contrasena">Fecha:</label>
-                <input type="date" class="form-control" id="fecha" name="fecha">
+                <input value = "${usuario.fecha}" type="date" class="form-control" id="fecha" name="fecha">
               </div>
               <div class="form-group text-center">
                 <input type="submit" class="btn btn-primary mr-2" value="Guardar"/>

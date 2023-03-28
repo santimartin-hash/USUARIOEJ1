@@ -3,6 +3,7 @@ package modelo;
 
 
 import java.sql.Date;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ public class ModeloUsuario extends Connector{
 			usuario.setId(resultado.getInt("id"));
 			usuario.setNombre(resultado.getString("Nombre"));
 			usuario.setFecha(resultado.getDate("fecha"));
+			usuario.setId_rol(resultado.getInt("id_rol"));
 			usuarios.add(usuario);
 
 		}
@@ -71,16 +73,29 @@ public class ModeloUsuario extends Connector{
 		usuario.setNombre(resultado.getString("Nombre"));
 		usuario.setContraseña(resultado.getString("Contraseña"));
 		usuario.setFecha(resultado.getDate("fecha"));
+		usuario.setId_rol(resultado.getInt("id_rol"));
 		}
 		
 		return usuario;
 	}
 	
 	public void insertarUsuario(Usuario usuario) throws SQLException {
-		pst = con.prepareStatement("INSERT INTO usuarios( Nombre, Contraseña) VALUES (?,?)");
+		pst = con.prepareStatement("INSERT INTO usuarios( Nombre, Contraseña,id_rol,Fecha) VALUES (?,?,?,?)");
 		
 		pst.setString(1, usuario.getNombre());
 		pst.setString(2, usuario.getContraseña());
+		pst.setInt(3, usuario.getId_rol());
+		pst.setDate(4, new Date(usuario.getFecha().getTime()));
+		pst.execute();
+	}
+	public void modificarUsuario(Usuario usuario) throws SQLException {
+		pst = con.prepareStatement("UPDATE usuarios SET id_rol=?,Nombre=?,Contraseña=?,Fecha=? WHERE id = ?");
+		
+		pst.setInt(1, usuario.getId_rol());
+		pst.setString(2, usuario.getNombre());
+		pst.setString(3, usuario.getContraseña());
+		pst.setDate(4, new Date(usuario.getFecha().getTime()));
+		pst.setInt(5, usuario.getId());
 		pst.execute();
 	}
 }
