@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+ <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@
                 <input type="text" class="form-control" id="nombre" name="nombre">
               </div>
                <div class="form-group">
-                <label for="contrasena">id_rol:</label>
+               <label for="nombre">rol:</label>
                 <input type="text" class="form-control" id="id_rol" name="id_rol">
               </div>
               <div class="form-group">

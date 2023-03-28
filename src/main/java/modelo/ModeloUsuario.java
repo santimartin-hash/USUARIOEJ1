@@ -39,6 +39,31 @@ public class ModeloUsuario extends Connector{
 		return usuarios;
 		
 	}
+public ArrayList<Rol> getRoles() throws SQLException {
+		
+		ArrayList<Rol> roles = new ArrayList<Rol>();
+		
+
+		pst = con.prepareStatement("SELECT * FROM roles");
+		
+		pst.executeQuery();
+
+		resultado = pst.executeQuery();
+		
+		while(resultado.next()) {
+			
+			Rol rol = new Rol();
+			
+			rol.setId(resultado.getInt("id"));
+			rol.setNombre(resultado.getString("Nombre"));
+			roles.add(rol);
+
+		}
+		
+		
+		return roles;
+		
+	}
 	
 	public void EliminarUsuario(int id) {
 		

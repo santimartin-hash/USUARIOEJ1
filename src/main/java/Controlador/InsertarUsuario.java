@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import modelo.ModeloUsuario;
+import modelo.Rol;
 import modelo.Usuario;
 
 /**
@@ -47,7 +49,7 @@ public class InsertarUsuario extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-
+		ArrayList<Rol> roles = new ArrayList<Rol>();
 		ModeloUsuario modeloUsuario = new ModeloUsuario();
 		Usuario usuario = new Usuario();
 	
@@ -81,7 +83,13 @@ public class InsertarUsuario extends HttpServlet {
 		usuario.setContraseña(contraseña);
 		usuario.setId_rol(id_rol);
 
-	
+		try {
+			roles = modeloUsuario.getRoles();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		request.setAttribute("roles", roles);
 		try {
 			modeloUsuario.insertarUsuario(usuario);
 			

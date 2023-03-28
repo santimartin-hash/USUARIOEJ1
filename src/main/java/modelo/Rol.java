@@ -1,6 +1,6 @@
 package modelo;
 
-public class Seccion {
+public class Rol {
 private int id;
 private String nombre;
 public int getId() {
