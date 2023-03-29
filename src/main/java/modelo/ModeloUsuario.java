@@ -17,7 +17,7 @@ public class ModeloUsuario extends Connector{
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		
 
-		pst = con.prepareStatement("SELECT * FROM usuarios");
+		pst = con.prepareStatement("SELECT u.*, r.nombre AS rol_nombre FROM usuarios u JOIN roles r ON u.id_rol = r.id");
 		
 		pst.executeQuery();
 
@@ -28,9 +28,10 @@ public class ModeloUsuario extends Connector{
 			Usuario usuario = new Usuario();
 			
 			usuario.setId(resultado.getInt("id"));
+			usuario.setId_rol(resultado.getInt("id_rol"));
 			usuario.setNombre(resultado.getString("Nombre"));
 			usuario.setFecha(resultado.getDate("fecha"));
-			usuario.setId_rol(resultado.getInt("id_rol"));
+			usuario.setRol_nombre(resultado.getString("rol_nombre"));
 			usuarios.add(usuario);
 
 		}
@@ -59,10 +60,8 @@ public ArrayList<Rol> getRoles() throws SQLException {
 			roles.add(rol);
 
 		}
-		
-		
-		return roles;
-		
+	
+		return roles;	
 	}
 	
 	public void EliminarUsuario(int id) {

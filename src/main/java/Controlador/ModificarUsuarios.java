@@ -52,20 +52,7 @@ public class ModificarUsuarios extends HttpServlet {
 			e.printStackTrace();
 		}
 	    modeloUsuario.cerrar();
-	    
-
-		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-		
-		modeloUsuario.conectar();
-		try {
-			usuarios = modeloUsuario.getUsuarios();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		modeloUsuario.cerrar();
+	   
 		
 	
 		ArrayList<Rol> roles = new ArrayList<Rol>();

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import modelo.ModeloUsuario;
+import modelo.Rol;
 import modelo.Usuario;
 
 /**
@@ -46,6 +47,7 @@ public class verUsuarios extends HttpServlet {
 		modeloUsuario.cerrar();
 		
 		request.setAttribute("usuarios", usuarios);
+		
 		
 		request.getRequestDispatcher("verUsuarios.jsp").forward(request, response);
 	}

@@ -29,7 +29,7 @@
                 <input value = "${usuario.nombre}" type="text" class="form-control" id="nombre" name="nombre">
               </div>
                <div class="form-group">
-               <label for="id_rol">Rol:</label>
+               <label for="id_rol"></label>
 			   <select class="form-control" id="id_rol" name="id_rol">
 			 		<option value="0"></option>
 						<c:forEach var="roles" items="${roles}">
@@ -37,7 +37,7 @@
     						<option value="${roles.id}" selected>${roles.nombre}</option>
   							</c:if>
   							<c:if test="${usuario.id_rol != roles.id}">
-    						<option value="${roles.id}" selected>${roles.nombre}</option>
+    						<option value="${roles.id}">${roles.nombre}</option>
   							</c:if>
   							
 						</c:forEach>	

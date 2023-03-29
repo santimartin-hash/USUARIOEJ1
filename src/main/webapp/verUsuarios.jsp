@@ -14,7 +14,7 @@
 	  <tr>
 	    <th scope="col">Id</th>
 	    <th scope="col">Nombre</th>
-	    <th scope="col">id_rol</th>
+	    <th scope="col">rol</th>
 	     <th scope="col">fecha</th>
 	    <th scope="col">Acciones <button type="button" class="btn btn-success" style="margin-left: 100px;"><a href="InsertarUsuario" style='text-decoration:none;color:white;(otros)'>Insertar</a></button></th>
 	  </tr>
@@ -24,7 +24,9 @@
 	 	<tr>
 	  		<td>${usuario.id}</td>
 	        <td>${usuario.nombre}</td>
-	        <td>${usuario.id_rol}</td>
+	    
+	        <td>${usuario.rol_nombre}</td>
+	  
 	         <td>${usuario.fecha}</td>
 	         <td><button type="button" class="btn btn-success" style="margin-right: 10px;"><a href="verUsuario?id=${usuario.id}" style='text-decoration:none;color:white;(otros)'>Ver</a>
 	         </button><button type="button" class="btn btn-primary mr-3" style="margin-right: 10px;"><a href="ModificarUsuarios?id=${usuario.id}" style='text-decoration:none;color:white;(otros)'>Modificar</a></button>
