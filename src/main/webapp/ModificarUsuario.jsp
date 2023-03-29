@@ -29,7 +29,7 @@
                 <input value = "${usuario.nombre}" type="text" class="form-control" id="nombre" name="nombre">
               </div>
                <div class="form-group">
-               <label for="id_rol"></label>
+               <label for="id_rol">Rol:</label>
 			   <select class="form-control" id="id_rol" name="id_rol">
 			 		<option value="0"></option>
 						<c:forEach var="roles" items="${roles}">

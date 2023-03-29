@@ -36,7 +36,7 @@
             </div>
              <div class="form-group">
               <label for="nombre">id_rol:</label>
-              <span class="form-control" id="id-display">${usuario.id_rol}</span>
+              <span class="form-control" id="id-display">${usuario.rol_nombre}</span>
             </div>
           </div>
         </div>

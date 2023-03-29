@@ -81,7 +81,7 @@ public ArrayList<Rol> getRoles() throws SQLException {
 	}
 	public Usuario getUsuario(int id) throws SQLException {
 		
-		pst = con.prepareStatement("SELECT * FROM usuarios WHERE id = ?");
+		pst = con.prepareStatement("SELECT u.*, r.nombre AS rol_nombre FROM usuarios u JOIN roles r ON u.id_rol = r.id WHERE u.id = ?");
 		
 		pst.setInt(1, id);
 		
@@ -98,6 +98,7 @@ public ArrayList<Rol> getRoles() throws SQLException {
 		usuario.setContraseña(resultado.getString("Contraseña"));
 		usuario.setFecha(resultado.getDate("fecha"));
 		usuario.setId_rol(resultado.getInt("id_rol"));
+		usuario.setRol_nombre(resultado.getString("rol_nombre"));
 		}
 		
 		return usuario;
