@@ -12,6 +12,8 @@ import java.util.ArrayList;
 public class ModeloUsuario extends Connector{
 	PreparedStatement pst;
 	ResultSet resultado; 
+	
+	
 	public ArrayList<Usuario> getUsuarios() throws SQLException {
 		
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
@@ -79,11 +81,57 @@ public ArrayList<Rol> getRoles() throws SQLException {
 			e.printStackTrace();
 		}
 	}
+	
+public String getContraseña(String nombre) throws SQLException {
+		
+		pst = con.prepareStatement("SELECT contraseña FROM usuarios WHERE nombre=? ");
+		
+		pst.setString(1, nombre);
+		
+		pst.executeQuery();
+
+		resultado = pst.executeQuery();
+		
+		Usuario usuario = new Usuario();
+		
+		while(resultado.next()) {	
+		usuario.setContraseña(resultado.getString("Contraseña"));
+		}
+		
+		return usuario.getContraseña();
+	}
+	
+	
 	public Usuario getUsuario(int id) throws SQLException {
 		
 		pst = con.prepareStatement("SELECT u.*, r.nombre AS rol_nombre FROM usuarios u JOIN roles r ON u.id_rol = r.id WHERE u.id = ?");
 		
 		pst.setInt(1, id);
+		
+		pst.executeQuery();
+
+		resultado = pst.executeQuery();
+		
+		Usuario usuario = new Usuario();
+		
+		while(resultado.next()) {	
+		
+		usuario.setId(resultado.getInt("id"));
+		usuario.setNombre(resultado.getString("Nombre"));
+		usuario.setContraseña(resultado.getString("Contraseña"));
+		usuario.setFecha(resultado.getDate("fecha"));
+		usuario.setId_rol(resultado.getInt("id_rol"));
+		usuario.setRol_nombre(resultado.getString("rol_nombre"));
+		}
+		
+		return usuario;
+	}
+	
+public Usuario getUsuarioNombre(String nombre) throws SQLException {
+		
+		pst = con.prepareStatement("SELECT u.*, r.nombre AS rol_nombre FROM usuarios u JOIN roles r ON u.id_rol = r.id WHERE u.nombre = ?");
+		
+		pst.setString(1, nombre);
 		
 		pst.executeQuery();
 
