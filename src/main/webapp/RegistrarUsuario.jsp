@@ -82,10 +82,10 @@
 			<div class="col-lg-5 col-md-8">
 				<div class="card">
 					<div class="card-header">
-						Iniciar sesión
+						Registrarse
 					</div>
 					<div class="card-body">
-						<form method="post" action="Login">
+						<form method="post" action="RegistrarUsuario">
 							<div class="form-group">
 								<label for="username"><i class="fas fa-user"></i> Usuario</label>
 								<input type="text" class="form-control" id="username" name="username" placeholder="Ingrese su nombre de usuario">
@@ -95,11 +95,20 @@
 								<input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña">
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Ingresar</button>
+    							<label for="fecha"><i class="fas fa-calendar"></i> Fecha de nacimiento</label>
+   								<input type="date" class="form-control" id="fecha" name="fecha">
 							</div>
+							<div class="form-group" style="display: none;">
+    							<label for="id_rol"><i class="fas fa-user"></i> rol</label>
+   								 <input type="text" class="form-control" id="id_rol" name="id_rol" value="1" placeholder="id rol">
+							</div>
+							<div class="form-group" >
+								<button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrarse</button>
+							</div>
+							
 							<div class="form-group">
 							</form>
-						<a href="RegistrarUsuario" style="display: block; text-align: center; color: black;">Aun no te has registrado? Registrate</a>							
+						<a href="Login" style="display: block; text-align: center; color: black;">Ya tienes cuenta? Inicia Sesion</a>							
 					</div>
 				</div>
 			</div>
