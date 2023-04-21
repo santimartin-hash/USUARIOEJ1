@@ -1,7 +1,6 @@
 package Controlador;
 
 import java.io.IOException;
-
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -9,21 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import modelo.ModeloUsuario;
 import modelo.Usuario;
 
 /**
- * Servlet implementation class verUsuario
+ * Servlet implementation class verUsuariosCliente
  */
-@WebServlet("/verUsuario")
-public class verUsuario extends HttpServlet {
+@WebServlet("/verUsuariosCliente")
+public class verUsuariosCliente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public verUsuario() {
+    public verUsuariosCliente() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,25 +33,34 @@ public class verUsuario extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ModeloUsuario modeloUsuario = new ModeloUsuario();
-		Usuario usuario = new Usuario();
+		HttpSession session = request.getSession();
 		
-		modeloUsuario.conectar();
-		int id = Integer.parseInt( request.getParameter("id"));
+		Usuario usuariologueado = (Usuario) session.getAttribute("usuariologeado");
 		
-		try {
-			usuario = modeloUsuario.getUsuario(id);
-			Usuario usuariologeado = modeloUsuario.getUsuarioLogin(usuario.getNombre(),usuario.getContraseña());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (usuariologueado == null) {//no logeado
+			response.sendRedirect("Login");
+		} else {//si esta logueado
+			request.setAttribute("usuariologeado", usuariologueado);
+			
+			ModeloUsuario modeloUsuario = new ModeloUsuario();
+			
+			modeloUsuario.conectar();
+		
+			
+			try {
+				usuariologueado = modeloUsuario.getUsuario(usuariologueado.getId());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			modeloUsuario.cerrar();
+			
+			request.setAttribute("usuario", usuariologueado);
+			
+			request.getRequestDispatcher("verUsuariosCliente.jsp").forward(request, response);
 		}
-		modeloUsuario.cerrar();
-		
-		request.setAttribute("usuario", usuario);
-		
-		request.getRequestDispatcher("VerUsuario.jsp").forward(request, response);
-	}
+
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

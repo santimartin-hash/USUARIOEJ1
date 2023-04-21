@@ -127,6 +127,32 @@ public String getContraseña(String nombre) throws SQLException {
 		return usuario;
 	}
 	
+	public Usuario getUsuarioLogin(String nombre, String contraseña) throws SQLException {
+		
+		pst = con.prepareStatement("SELECT u.*, r.nombre AS rol_nombre FROM usuarios u JOIN roles r ON u.id_rol = r.id WHERE u.nombre = ? AND u.contraseña = ?");
+		
+		pst.setString(1, nombre);
+		pst.setString(2, contraseña);
+		
+		pst.executeQuery();
+
+		resultado = pst.executeQuery();
+		
+		Usuario usuario = new Usuario();
+		
+		while(resultado.next()) {	
+		
+		usuario.setId(resultado.getInt("id"));
+		usuario.setNombre(resultado.getString("Nombre"));
+		usuario.setContraseña(resultado.getString("Contraseña"));
+		usuario.setFecha(resultado.getDate("fecha"));
+		usuario.setId_rol(resultado.getInt("id_rol"));
+		usuario.setRol_nombre(resultado.getString("rol_nombre"));
+		}
+		
+		return usuario;
+	}
+	
 public Usuario getUsuarioNombre(String nombre) throws SQLException {
 		
 		pst = con.prepareStatement("SELECT u.*, r.nombre AS rol_nombre FROM usuarios u JOIN roles r ON u.id_rol = r.id WHERE u.nombre = ?");

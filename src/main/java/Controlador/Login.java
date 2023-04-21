@@ -57,15 +57,22 @@ public class Login extends HttpServlet {
 				ContraseñaBBDD = modeloUsuario.getContraseña(nombre);
 				
 				if (contraseña.equals(ContraseñaBBDD)) {
+			
+						
 					
 					
-					Usuario usuariologeado = modeloUsuario.getUsuarioNombre(nombre);
+					Usuario usuariologeado = modeloUsuario.getUsuarioLogin(nombre,contraseña);
 					
 					HttpSession session = request.getSession();
 					
 					session.setAttribute("usuariologeado", usuariologeado);
 					
+					if (usuariologeado.getId_rol() == 2) {
 					response.sendRedirect("verUsuarios");
+					
+					} else {
+						response.sendRedirect("verUsuariosCliente");
+					}
 				} else {
 					request.getRequestDispatcher("login.jsp").forward(request, response);
 				}
@@ -76,7 +83,8 @@ public class Login extends HttpServlet {
 			}
 			modeloUsuario.cerrar();
 		
-	
+
+
   }
 }
 

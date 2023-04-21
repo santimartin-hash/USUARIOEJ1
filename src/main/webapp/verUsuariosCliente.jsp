@@ -25,10 +25,9 @@
 	<div class="container my-3">
 		<div class="row justify-content-between">
 			<div class="col-auto">
-				<h1>Opciones de Administrador:</h1>
+				<h1>Hola ${usuario.nombre}:</h1>
 			</div>
 			<div class="col-auto">
-				<a href="InsertarUsuario" class="btn btn-success">Insertar</a>
 			</div>
 		</div>
 		<table class="table table-dark table-striped mt-3">
@@ -36,25 +35,24 @@
 				<tr>
 					<th scope="col">Id</th>
 					<th scope="col">Nombre</th>
-					<th scope="col">${usuario.id_rol}</th>
+					<th scope="col">Rol</th>
 					<th scope="col">Fecha</th>
 					<th scope="col">Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${usuarios}" var="usuario">
+			
 					<tr>
 						<td>${usuario.id}</td>
 						<td>${usuario.nombre}</td>
 						<td>${usuario.rol_nombre}</td>
 						<td>${usuario.fecha}</td>
 						<td>
-							<a href="verUsuario?id=${usuario.id}" class="btn btn-success">Ver</a>
-							<a href="ModificarUsuarios?id=${usuario.id}" class="btn btn-primary">Modificar</a>
-							<a href="EliminarUsuario?id=${usuario.id}" class="btn btn-danger">Eliminar</a>
+							<a href="verUsuario?id=${usuariologeado.id}" class="btn btn-success">Ver</a>
+							<a href="ModificarUsuarioCliente?id=${usuariologeado.id}" class="btn btn-primary">Modificar</a>
 						</td>
 					</tr>
-				</c:forEach>
+		
 			</tbody>
 		</table>
 	</div>

@@ -38,6 +38,7 @@
               <label for="nombre">id_rol:</label>
               <span class="form-control" id="id-display">${usuario.rol_nombre}</span>
             </div>
+               <a href ="verUsuarios" style="display: block; text-align: center;" class="btn btn-primary mr-2" >Volver</a>
           </div>
         </div>
       </div>

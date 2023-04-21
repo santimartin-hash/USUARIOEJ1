@@ -44,6 +44,9 @@ public class verUsuarios extends HttpServlet {
 			response.sendRedirect("Login");
 		} else {//si esta logueado
 		
+		if (usuariologueado.getId_rol() == 2) {
+			
+		
 		ModeloUsuario modeloUsuario = new ModeloUsuario();
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		
@@ -60,6 +63,11 @@ public class verUsuarios extends HttpServlet {
 		
 		
 		request.getRequestDispatcher("verUsuarios.jsp").forward(request, response);
+		
+		} else {
+			response.sendRedirect("verUsuariosCliente");
+		}
+		
 	}
 	}
 	
